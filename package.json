@@ -1,6 +1,6 @@
 {
       "name": "resource-hosting",
-      "homepage": "https://elquiasj.github.io/Resource-Hosting/",
+      "homepage": "https://elquiasj.github.io/resource-hosting/",
       "version": "0.1.0",
       "private": true,
       "dependencies": {
