@@ -58,5 +58,5 @@
       port: 3000,
       open: true,
     },
-    base: '/Resource-Hosting'
+    base: '/resource-hosting'
   });
