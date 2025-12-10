@@ -1,35 +1,72 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useState, useEffect, useCallback } from 'react';
+import LandingPage from './components/LandingPage';
+import ResourcePage from './components/ResourcePage';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [currentResourceIndex, setCurrentResourceIndex] = useState<number>(() => {
+    const saved = localStorage.getItem('currentResourceIndex');
+    return saved ? parseInt(saved, 10) : 0;
+  });
+
+    const [completedResources, setCompletedResources] = useState<Set<number>>(() => {
+    const saved = localStorage.getItem('completedResources');
+    return saved ? new Set(JSON.parse(saved)) : new Set();
+  });
+
+  useEffect(() => {
+    localStorage.setItem('currentResourceIndex', currentResourceIndex.toString());
+  }, [currentResourceIndex]);
+
+  useEffect(() => {
+    localStorage.setItem('completedResources', JSON.stringify(Array.from(completedResources)));
+  }, [completedResources]);
+
+  const setCurrentResource = useCallback((index: number) => {
+    setCurrentResourceIndex(index);
+  }, []);
+
+  const markAsCompleted = useCallback((index: number) => {
+    setCompletedResources(prev => {
+      if (prev.has(index)) {
+        return prev;
+      }
+      return new Set(prev).add(index);
+    });
+  }, []);
+
+  const resetProgress = useCallback(() => {
+    setCurrentResourceIndex(0);
+    setCompletedResources(new Set());
+    localStorage.removeItem('currentResourceIndex');
+    localStorage.removeItem('completedResources');
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <Router>
+      <Routes>
+        <Route 
+          path="/resource-hosting/" 
+          element={
+            <LandingPage 
+              currentResourceIndex={currentResourceIndex}
+              completedResources={completedResources}
+              resetProgress={resetProgress}
+            />
+          } 
+        />
+        <Route 
+          path="/trilha/:id" 
+          element={
+            <ResourcePage 
+              currentResourceIndex={currentResourceIndex}
+              setCurrentResource={setCurrentResource}
+              markAsCompleted={markAsCompleted}
+              completedResources={completedResources}
+            />
+          } 
+        />
+      </Routes>
+    </Router>
+  );
 }
-
-export default App
