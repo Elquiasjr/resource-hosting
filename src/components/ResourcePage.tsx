@@ -8,11 +8,11 @@ const resourcesData = [
     title: 'Conhecendo as Florestas',
     icon: '🖼️',
     color: 'from-green-500 to-emerald-600',
-    type: 'carousel',
+    type: 'hq',
     description: 'Galeria de imagens das florestas',
     fullDescription: 'Explore as belezas da Mata Atlântica e da Floresta de Cantanhez através desta galeria de imagens.',
     content: {
-      type: 'carousel',
+      type: 'hq',
       images: [
         {
           url: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1200&h=800&fit=crop',
@@ -65,7 +65,7 @@ const resourcesData = [
     fullDescription: 'Responda às perguntas e descubra o quanto você sabe sobre a preservação das florestas!',
     content: {
       type: 'quiz',
-      embedUrl: 'https://wayground.com/embed/quiz/653735a59e4c700cd6ab0254'
+      embedUrl: 'https://wordwall.net/pt/embed/b907b90b125445958294f6cc101d489e?themeId=1&templateId=5&fontStackId=0'
     }
   }
 ];
