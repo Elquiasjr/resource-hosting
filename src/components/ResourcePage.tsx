@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import { ArrowLeft, ArrowRight, Home } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowLeft, ArrowRight, Home, Lock } from 'lucide-react';
 import { Book } from './Book';
 
 const resourcesData = [
@@ -15,7 +15,7 @@ const resourcesData = [
     content: {
       type: 'hq',
       images: [
-        '/resource-hosting/images/page_1.jpg',  // Changed: Use public folder paths
+        '/resource-hosting/images/page_1.jpg',
         '/resource-hosting/images/page_2.jpg',
         '/resource-hosting/images/page_3.jpg',
         '/resource-hosting/images/page_4.jpg',
@@ -66,6 +66,7 @@ interface ResourceHostingPageProps {
 export default function ResourcePage({ currentResourceIndex, setCurrentResource, markAsCompleted }: ResourceHostingPageProps) {
     const { id } = useParams<{ id: string}>();
     const navigate = useNavigate();
+    const [canProceed, setCanProceed] = useState(false);
 
     const resourceId = id ? parseInt(id, 10) : 0;
     const resource = resourcesData[resourceId];
@@ -80,6 +81,18 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
         }
     }, [resourceId, currentResourceIndex, setCurrentResource]);
 
+    useEffect(() => {
+        if (resource?.content.type !== 'hq') {
+            setCanProceed(true);
+        } else {
+            setCanProceed(false);
+        }
+    }, [resourceId, resource]);
+
+    const handleLastPageReached = () => {
+        setCanProceed(true);
+    };
+
     const handlePrevious = () => {
         if (resourceId > 0) {
             navigate(`/resource-hosting/trilha/${resourceId - 1}`);
@@ -87,7 +100,9 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
     };
 
     const handleNext = () => {
-        // Mark current as completed when moving to next
+        if (!canProceed && resource?.content.type === 'hq') {
+            return;
+        }
         markAsCompleted(resourceId);
         if (resourceId < resourcesData.length - 1) {
             setCurrentResource(resourceId + 1);
@@ -158,8 +173,18 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                         <p className="text-slate-600 text-center mb-8">
                             Clique nas bordas das páginas ou use os botões para navegar
                         </p>
+                        {!canProceed && (
+                            <div className="bg-blue-50 border-2 border-blue-300 rounded-xl p-4 mb-6 text-center">
+                                <p className="text-blue-800 font-medium">
+                                    📖 Você precisa ler todas as páginas antes de continuar para a próxima etapa
+                                </p>
+                            </div>
+                        )}
                         <div className="flex justify-center items-center">
-                            <Book pages={resource.content.images} />
+                            <Book 
+                                pages={resource.content.images} 
+                                onLastPageReached={handleLastPageReached}
+                            />
                         </div>
                     </div>
                 )}
@@ -229,28 +254,34 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                 <div className="bg-white rounded-2xl shadow-lg p-8">
                     <div className="flex items-center justify-between gap-4">
                         <button
-                        onClick={handlePrevious}
-                        disabled={resourceId === 0}
-                        className={`flex items-center gap-2 px-8 py-4 rounded-xl transition-all text-lg ${
-                            resourceId === 0
-                            ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
-                            : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
-                        }`}
+                            onClick={handlePrevious}
+                            disabled={resourceId === 0}
+                            className={`flex items-center gap-2 px-8 py-4 rounded-xl transition-all text-lg ${
+                                resourceId === 0
+                                ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
+                                : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
+                            }`}
                         >
-                        <ArrowLeft className="w-5 h-5" />
-                        Etapa Anterior
+                            <ArrowLeft className="w-5 h-5" />
+                            Etapa Anterior
                         </button>
 
                         <button
-                        onClick={handleNext}
-                        className={`flex items-center gap-2 px-8 py-4 rounded-xl transition-all text-lg ${
-                            resourceId === resourcesData.length - 1
-                            ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:opacity-90'
-                            : `bg-gradient-to-r ${resource.color} text-white hover:opacity-90`
-                        }`}
+                            onClick={handleNext}
+                            disabled={!canProceed && resource.content.type === 'hq'}
+                            className={`flex items-center gap-2 px-8 py-4 rounded-xl transition-all text-lg ${
+                                !canProceed && resource.content.type === 'hq'
+                                ? `bg-slate-100 text-slate-400 cursor-not-allowed`
+                                : resourceId === resourcesData.length - 1
+                                ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white hover:opacity-90'
+                                : `bg-gradient-to-r ${resource.color} text-white hover:opacity-90`
+                            }`}
                         >
-                        {resourceId === resourcesData.length - 1 ? 'Finalizar Trilha' : 'Próxima Etapa'}
-                        <ArrowRight className="w-5 h-5" />
+                            {!canProceed && resource.content.type === 'hq' && (
+                                <Lock className="w-5 h-5" />
+                            )}
+                            {resourceId === resourcesData.length - 1 ? 'Finalizar Trilha' : 'Próxima Etapa'}
+                            <ArrowRight className="w-5 h-5" />
                         </button>
                     </div>
                 </div>

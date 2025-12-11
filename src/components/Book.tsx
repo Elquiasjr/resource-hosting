@@ -1,14 +1,16 @@
 import HTMLFlipBook from "react-pageflip";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BookProps {
     pages: string[];
+    onLastPageReached?: () => void;
 }
 
-export function Book({ pages }: BookProps) {
+export function Book({ pages, onLastPageReached }: BookProps) {
     const bookRef = useRef<any>(null);
     const [currentPage, setCurrentPage] = useState(0);
+    const [hasReachedLastPage, setHasReachedLastPage] = useState(false);
 
     const goToNextPage = () => {
         bookRef.current?.pageFlip().flipNext();
@@ -23,8 +25,22 @@ export function Book({ pages }: BookProps) {
     };
 
     const handleFlip = (e: any) => {
-        setCurrentPage(e.data);
+        const newPage = e.data;
+        setCurrentPage(newPage);
+
+        // Check if user reached the last page
+        if (newPage === pages.length - 1 && !hasReachedLastPage) {
+            setHasReachedLastPage(true);
+            // Use setTimeout to defer the callback to avoid synchronous setState
+            if (onLastPageReached) {
+                setTimeout(() => {
+                    onLastPageReached();
+                }, 0);
+            }
+        }
     };
+
+
 
     return (
         <div className="flex flex-col items-center gap-6 w-full">
@@ -76,6 +92,15 @@ export function Book({ pages }: BookProps) {
                     </span>
                 </div>
             </div>
+
+            {/* Last Page Reached Indicator */}
+                {hasReachedLastPage && (
+                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-bounce z-10">
+                        <span className="font-medium">
+                            ✓ Você completou todas as páginas!
+                        </span>
+                    </div>
+                )}
 
             {/* Navigation Controls */}
             <div className="flex items-center justify-center gap-4 w-full flex-wrap">
