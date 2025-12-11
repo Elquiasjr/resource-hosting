@@ -6,15 +6,15 @@ import { About } from "./Sobre";
 const resources = [
   {
     id: 0,
-    title: 'Conhecendo as Florestas',
-    description: 'Galeria de imagens das florestas',
+    title: 'HQ Interativa: Conexões Ecológicas',
+    description: 'Explore nossa história ilustrada',
     icon: '🖼️',
     color: 'from-green-500 to-emerald-600'
   },
   {
     id: 1,
-    title: 'Aprendendo com Vídeos e Áudios',
-    description: 'Conteúdos em vídeo e áudio',
+    title: 'Aprendendo com Vídeos',
+    description: 'Conteúdos em vídeo',
     icon: '🎬',
     color: 'from-blue-500 to-cyan-600'
   },
