@@ -55,7 +55,7 @@ export function Book({ pages, onLastPageReached }: BookProps) {
                     maxHeight={1576}
                     maxShadowOpacity={0.5}
                     showCover={false}
-                    mobileScrollSupport={true}
+                    mobileScrollSupport={false}
                     className="shadow-2xl mx-auto"
                     ref={bookRef}
                     onFlip={handleFlip}
@@ -63,12 +63,12 @@ export function Book({ pages, onLastPageReached }: BookProps) {
                     clickEventForward={true}
                     swipeDistance={30}
                     drawShadow={true}
-                    flippingTime={800}
+                    flippingTime={300}
                     usePortrait={true}
                     startPage={0}
                     autoSize={true}
                     startZIndex={0}
-                    showPageCorners={true}
+                    showPageCorners={false}
                     disableFlipByClick={false}
                     style={{ margin: '0 auto' }}
                 >

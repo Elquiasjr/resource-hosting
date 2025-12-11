@@ -6,12 +6,12 @@ import { Book } from './Book';
 const resourcesData = [
   {
     id: 0,
-    title: 'Conhecendo as Florestas',
+    title: 'HQ Interativa: Conexões Ecológicas',
     icon: '🖼️',
     color: 'from-green-500 to-emerald-600',
     type: 'hq',
     description: 'Galeria de imagens das florestas',
-    fullDescription: 'Explore as belezas da Mata Atlântica e da Floresta de Cantanhez através desta galeria de imagens.',
+    fullDescription: 'Explore nossa história ilustrada sobre a importância da preservação ambiental. Veja como a ciência, a tecnologia e a sociedade (CTS) trabalham juntas para proteger a biodiversidade na Mata Atlântica e na Floresta de Cantanhez.',
     content: {
       type: 'hq',
       images: [
@@ -29,15 +29,18 @@ const resourcesData = [
   },
   {
     id: 1,
-    title: 'Aprendendo com Vídeos e Áudios',
+    title: 'Aprendendo com Vídeos',
     icon: '🎬',
     color: 'from-blue-500 to-cyan-600',
     type: 'media',
-    description: 'Conteúdos em vídeo e áudio',
-    fullDescription: 'Assista ao vídeo e ouça os áudios para aprender mais sobre as florestas.',
+    description: 'Conteúdos em vídeo',
+    fullDescription: 'Assista aos vídeos para aprender mais sobre as florestas.',
     content: {
         type: 'media',
-        videoUrl: '/resource-hosting/videos/video1.mp4', 
+        videos: [
+          { url: '/resource-hosting/videos/video1.mp4', title: 'Cantanhez: Uma Biblioteca Viva da Natureza' },
+          { url: '/resource-hosting/videos/video2.mp4', title: 'Florestas Conectadas: Desafios e Soluções Globais' }
+        ],
         audioPlayers: 3
     }
   },
@@ -192,49 +195,35 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                {/* Media (Video + Audio) */}
                 {resource.content.type === 'media' && (
                     <div className="space-y-8 mb-4">
-                        {/* Video Section */}
-                        <div className="bg-white rounded-2xl shadow-xl p-8">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Vídeo Educativo</h2>
-                            <div className="aspect-video rounded-xl overflow-hidden bg-slate-100 border-4 border-slate-200 shadow-inner relative">
-                                {resource.content.videoUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
-                                    // Option A: Local Video Player
-                                    <video 
-                                        className="w-full h-full object-cover"
-                                        controls
-                                        playsInline
-                                        preload="metadata"
-                                    >
-                                        <source src={resource.content.videoUrl} type="video/mp4" />
-                                        Seu navegador não suporta a tag de vídeo.
-                                    </video>
-                                ) : (
-                                    // Option B: External Embed (YouTube/Vimeo)
-                                    <iframe
-                                        src={resource.content.videoUrl}
-                                        className="w-full h-full"
-                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                        allowFullScreen
-                                        title="Vídeo Educativo"
-                                    />
-                                )}
-                            </div>
-                        </div>
-                        {/* Audio Section */}
-                        <div className="bg-white rounded-2xl shadow-xl p-8">
-                            <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Áudios Complementares</h2>
-                            <div className="space-y-6">
-                                {Array.from({ length: resource.content.audioPlayers || 0 }, (_, index) => (
-                                <div key={index} className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border-2 border-blue-200">
-                                    <h3 className="text-slate-800 mb-4 font-bold">Áudio {index + 1}</h3>
-                                    <div className="bg-white rounded-lg p-6 border-2 border-dashed border-slate-300 text-center text-slate-500 hover:bg-slate-50 transition-colors">
-                                        <p className="mb-2 text-3xl">🎵</p>
-                                        <p className="font-medium">Player de áudio {index + 1}</p>
-                                        <p className="text-sm mt-1">O arquivo de áudio será inserido aqui</p>
-                                    </div>
+                        {/* Videos Section */}
+                        {resource.content.videos && resource.content.videos.map((video, index) => (
+                            <div key={index} className="bg-white rounded-2xl shadow-xl p-8">
+                                <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">{video.title}</h2>
+                                <div className="aspect-video rounded-xl overflow-hidden bg-slate-100 border-4 border-slate-200 shadow-inner relative">
+                                    {video.url.includes('youtube.com') || video.url.includes('youtu.be') ? (
+                                        // YouTube Embed
+                                        <iframe
+                                            src={video.url}
+                                            className="w-full h-full"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            allowFullScreen
+                                            title={video.title}
+                                        />
+                                    ) : (
+                                        // Local Video Player
+                                        <video 
+                                            className="w-full h-full object-cover"
+                                            controls
+                                            playsInline
+                                            preload="metadata"
+                                        >
+                                            <source src={video.url} type="video/mp4" />
+                                            Seu navegador não suporta a tag de vídeo.
+                                        </video>
+                                    )}
                                 </div>
-                                ))}
                             </div>
-                        </div>
+                        ))}
                     </div>
                 )}
 
