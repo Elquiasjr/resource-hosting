@@ -168,7 +168,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
             {/* Book Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {resource.content.type === 'hq' && resource.content.images && (
-                    <div className="bg-white rounded-2xl shadow-xl p-8">
+                    <div className="bg-white rounded-2xl shadow-xl p-8 mb-12">
                         <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Galeria de Imagens</h2>
                         <p className="text-slate-600 text-center mb-8">
                             Clique nas bordas das páginas ou use os botões para navegar
@@ -188,66 +188,94 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                         </div>
                     </div>
                 )}
-            </div>
 
-           {/* Media (Video + Audio) */}
-            {resource.content.type === 'media' && (
-                <div className="space-y-8">
-                    {/* Video Section */}
-                    <div className="bg-white rounded-2xl shadow-xl p-8">
-                        <h2 className="text-slate-900 mb-6 text-center">Vídeo Educativo</h2>
-                        <div className="aspect-video rounded-xl overflow-hidden bg-slate-100 border-4 border-slate-200">
-                            <iframe
-                            src={resource.content.videoUrl}
-                            className="w-full h-full"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                            allowFullScreen
-                            title="Vídeo Educativo"
-                            />
+               {/* Media (Video + Audio) */}
+                {resource.content.type === 'media' && (
+                    <div className="space-y-8 mb-12">
+                        {/* Video Section */}
+                        <div className="bg-white rounded-2xl shadow-xl p-8">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Vídeo Educativo</h2>
+                            <div className="aspect-video rounded-xl overflow-hidden bg-slate-100 border-4 border-slate-200 shadow-inner">
+                                <iframe
+                                src={resource.content.videoUrl}
+                                className="w-full h-full"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                title="Vídeo Educativo"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Audio Section */}
+                        <div className="bg-white rounded-2xl shadow-xl p-8">
+                            <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Áudios Complementares</h2>
+                            <div className="space-y-6">
+                                {Array.from({ length: resource.content.audioPlayers || 0 }, (_, index) => (
+                                <div key={index} className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border-2 border-blue-200">
+                                    <h3 className="text-slate-800 mb-4 font-bold">Áudio {index + 1}</h3>
+                                    <div className="bg-white rounded-lg p-6 border-2 border-dashed border-slate-300 text-center text-slate-500 hover:bg-slate-50 transition-colors">
+                                        <p className="mb-2 text-3xl">🎵</p>
+                                        <p className="font-medium">Player de áudio {index + 1}</p>
+                                        <p className="text-sm mt-1">O arquivo de áudio será inserido aqui</p>
+                                    </div>
+                                </div>
+                                ))}
+                            </div>
                         </div>
                     </div>
+                )}
 
-                    {/* Audio Section */}
-                    <div className="bg-white rounded-2xl shadow-xl p-8">
-                        <h2 className="text-slate-900 mb-6 text-center">Áudios Complementares</h2>
-                        <div className="space-y-6">
-                            {Array.from({ length: resource.content.audioPlayers || 0 }, (_, index) => (
-                            <div key={index} className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border-2 border-blue-200">
-                                <h3 className="text-slate-800 mb-4">Áudio {index + 1}</h3>
-                                <div className="bg-white rounded-lg p-4 border-2 border-dashed border-slate-300 text-center text-slate-500">
-                                    <p className="mb-2">🎵 Espaço reservado para o player de áudio {index + 1}</p>
-                                    <p className="text-sm">O grupo deverá adicionar o player de áudio aqui</p>
+                {/* Quiz */}
+                {resource.content.type === 'quiz' && (
+                    // UPDATED: Added mb-16 for spacing from navigation
+                    <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 relative overflow-hidden mb-16">
+                        <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-orange-400 to-amber-500" />
+                        
+                        <div className="text-center mb-10 relative z-10">
+                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-orange-100 mb-6 shadow-sm">
+                                <span className="text-4xl">🎮</span>
+                            </div>
+                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                                Hora do Desafio!
+                            </h2>
+                            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+                                Mostre que você aprendeu tudo sobre a Mata Atlântica e a Floresta de Cantanhez.
+                                Responda corretamente para se tornar um Guardião!
+                            </p>
+                        </div>
+
+                        {/* UPDATED: Changed max-w-5xl to max-w-3xl to reduce size */}
+                        <div className="w-full max-w-3xl mx-auto">
+                            {/* Game Frame */}
+                            <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-900 border-[8px] border-slate-800">
+                                <div className="relative w-full aspect-video bg-slate-100">
+                                    <iframe 
+                                        src={resource.content.embedUrl} 
+                                        title="Quiz dos Guardiões" 
+                                        className="absolute top-0 left-0 w-full h-full"
+                                        frameBorder="0" 
+                                        allowFullScreen
+                                    />
                                 </div>
                             </div>
-                            ))}
+                            
+                            <div className="mt-6 text-center">
+                                <p className="text-sm text-slate-500">
+                                    O jogo não carregou? {' '}
+                                    <a 
+                                        href={resource.content.embedUrl} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer"
+                                        className="text-orange-600 font-medium hover:text-orange-700 underline"
+                                    >
+                                        Abrir em nova janela
+                                    </a>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            )}
-
-            {/* Quiz */}
-            {resource.content.type === 'quiz' && (
-            <div className="bg-white rounded-2xl shadow-xl p-8">
-                <div className="text-center mb-8">
-                    <h2 className="text-slate-900 mb-4">Teste Seus Conhecimentos</h2>
-                    <p className="text-slate-600">
-                        Complete o quiz abaixo para testar o que você aprendeu sobre a preservação das florestas!
-                    </p>
-                </div>
-
-                <div className="w-full">
-                    <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: '8px', minHeight: '635px' }}>
-                        <iframe 
-                        src={resource.content.embedUrl} 
-                        title="Quiz dos Guardiões" 
-                        style={{ flex: 1, borderRadius: '12px' }} 
-                        frameBorder="0" 
-                        allowFullScreen
-                        />
-                    </div>
-                </div>
+                )}
             </div>
-            )}
 
             {/* Navigation Buttons */}
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
