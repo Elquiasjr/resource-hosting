@@ -3,23 +3,23 @@ import { Heart } from "lucide-react";
 const team = [
     {
         name: 'Elquias Junior',
-        role: 'Frontend Developer',
+        role: 'Desenvolvedor',
         avatar: '👨‍💻'
     },
     {
-        name: 'Elquias Junior',
-        role: 'Frontend Developer',
-        avatar: '👨‍💻'
+        name: 'Mamadu Djau',
+        role: 'Professor',
+        avatar: '👨‍🏫'
     },
     {
-        name: 'Elquias Junior',
-        role: 'Frontend Developer',
-        avatar: '👨‍💻'
+        name: 'Tatiane Aparecida',
+        role: 'Professora',
+        avatar: '👩‍🏫'
     },
     {
-        name: 'Elquias Junior',
-        role: 'Frontend Developer',
-        avatar: '👨‍💻'
+        name: 'Verônica do Espirito',
+        role: 'Professora',
+        avatar: '👩‍🏫'
     }
 ];
 

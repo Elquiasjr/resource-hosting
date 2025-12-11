@@ -19,26 +19,24 @@ export function Progress({ currentResourceIndex, completedResources, totalResour
 
     return(
         <div className="bg-white rounded-2xl shadow-lg p-8">
-            <div className="flex justify-between items-start mb-6">
-                <div className="text-center flex-1">
+            <div className="text-center mb-6">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
                     <Trophy className="w-8 h-8 text-green-600" />
                 </div>
                 <h2 className="text-slate-900 mb-2">Seu Progresso</h2>
-                <p className="text-slate-600">
+                <p className="text-slate-600 mb-4">
                     Você completou {completedCount} de {totalResources} etapas
                 </p>
-                </div>
                 
                 {(completedCount > 0 || currentResourceIndex > 0) && (
-                <button
-                    onClick={handleReset}
-                    className="flex items-center gap-2 text-slate-600 hover:text-red-600 transition-colors px-4 py-2 rounded-lg hover:bg-red-50"
-                    title="Resetar progresso"
-                >
-                    <RotateCcw className="w-5 h-5" />
-                    <span>Resetar</span>
-                </button>
+                    <button
+                        onClick={handleReset}
+                        className="inline-flex items-center gap-2 text-slate-600 hover:text-red-600 transition-colors px-4 py-2 rounded-lg hover:bg-red-50"
+                        title="Resetar progresso"
+                    >
+                        <RotateCcw className="w-5 h-5" />
+                        <span>Resetar</span>
+                    </button>
                 )}
             </div>
 

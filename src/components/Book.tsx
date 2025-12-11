@@ -1,5 +1,5 @@
 import HTMLFlipBook from "react-pageflip";
-import { useRef, useState} from "react";
+import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface BookProps {
