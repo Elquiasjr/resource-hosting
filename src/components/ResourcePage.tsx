@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { ArrowLeft, ArrowRight, Home } from 'lucide-react';
+import { Book } from './Book';
 
 const resourcesData = [
   {
@@ -14,30 +15,15 @@ const resourcesData = [
     content: {
       type: 'hq',
       images: [
-        {
-          url: 'https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=1200&h=800&fit=crop',
-          caption: 'A exuberante Mata Atlântica brasileira'
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1511497584788-876760111969?w=1200&h=800&fit=crop',
-          caption: 'Florestas tropicais são o lar de milhares de espécies'
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?w=1200&h=800&fit=crop',
-          caption: 'As árvores são essenciais para a vida no planeta'
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=1200&h=800&fit=crop',
-          caption: 'A preservação das florestas depende de todos nós'
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop',
-          caption: 'Caminhos verdes na floresta'
-        },
-        {
-          url: 'https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=1200&h=800&fit=crop',
-          caption: 'A diversidade da flora nas florestas tropicais'
-        }
+        '/resource-hosting/images/page_1.jpg',  // Changed: Use public folder paths
+        '/resource-hosting/images/page_2.jpg',
+        '/resource-hosting/images/page_3.jpg',
+        '/resource-hosting/images/page_4.jpg',
+        '/resource-hosting/images/page_5.jpg',
+        '/resource-hosting/images/page_6.jpg',
+        '/resource-hosting/images/page_7.jpg',
+        '/resource-hosting/images/page_8.jpg',
+        '/resource-hosting/images/page_9.jpg'
       ]
     }
   },
@@ -96,7 +82,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
 
     const handlePrevious = () => {
         if (resourceId > 0) {
-            navigate(`/trilha/${resourceId - 1}`);
+            navigate(`/resource-hosting/trilha/${resourceId - 1}`);
         }
     };
 
@@ -105,7 +91,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
         markAsCompleted(resourceId);
         if (resourceId < resourcesData.length - 1) {
             setCurrentResource(resourceId + 1);
-            navigate(`/trilha/${resourceId + 1}`);
+            navigate(`/resource-hosting/trilha/${resourceId + 1}`);
         } else {
             navigate('/resource-hosting/');
         }
@@ -122,7 +108,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                     <h2 className="text-slate-900 mb-4">Recurso não encontrado</h2>
                     <button
                         onClick={handleHome}
-                        className="text-green-600 hoever:text-green-700"
+                        className="text-green-600 hover:text-green-700"
                     >
                         Voltar para a página inicial
                     </button>
@@ -135,16 +121,16 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
         <div className="min-h-screen bg-gradient-to-b from-green-50 to-emerald-50">
             { /* Resource Header */ }
             <header className="bg-white shadow-sm sticky top-0 z-20">
-                <div className="flex items-center justify-between">
+                <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
                     <button
                         onClick={handleHome}
-                        className='flex items-center gap-2 text-slate-600 hover:text-green-600 transition-colors'
-                        >
+                        className="flex items-center gap-2 text-slate-600 hover:text-green-600 transition-colors"
+                    >
                         <Home className="w-5 h-5" />
                         <span>Página Inicial</span>
                     </button>
                     <div className="flex items-center gap-2">
-                        <span className='text-slate-600'>
+                        <span className="text-slate-600">
                             Etapa {resourceId + 1} de {resourcesData.length}
                         </span>
                     </div>
@@ -165,8 +151,18 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
             </div>
 
             {/* Book Content */}
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                {resource.content.type === 'hq' && resource.content.images && (
+                    <div className="bg-white rounded-2xl shadow-xl p-8">
+                        <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Galeria de Imagens</h2>
+                        <p className="text-slate-600 text-center mb-8">
+                            Clique nas bordas das páginas ou use os botões para navegar
+                        </p>
+                        <div className="flex justify-center items-center">
+                            <Book pages={resource.content.images} />
+                        </div>
+                    </div>
+                )}
             </div>
 
            {/* Media (Video + Audio) */}

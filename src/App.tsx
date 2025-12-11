@@ -56,7 +56,7 @@ export default function App() {
           } 
         />
         <Route 
-          path="/trilha/:id" 
+          path="/resource-hosting/trilha/:id" 
           element={
             <ResourcePage 
               currentResourceIndex={currentResourceIndex}
