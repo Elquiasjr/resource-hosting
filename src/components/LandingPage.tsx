@@ -37,11 +37,11 @@ export default function LandingPage({ currentResourceIndex, completedResources, 
   const navigate = useNavigate();
 
   const handleContinue = () => {
-    navigate(`/trilha/${currentResourceIndex}`);
+    navigate(`/resource-hosting/trilha/${currentResourceIndex}`);
   };
 
   const handleStart = () => {
-    navigate('/trilha/0');
+    navigate('/resource-hosting/trilha/0');
   };
 
   const totalResources = resources.length;

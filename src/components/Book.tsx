@@ -51,6 +51,9 @@ export function Book({ pages }: BookProps) {
                     usePortrait={true}
                     startPage={0}
                     autoSize={true}
+                    startZIndex={0}
+                    showPageCorners={true}
+                    disableFlipByClick={false}
                     style={{ margin: '0 auto' }}
                 >
                     {pages.map((imagePath, index) => (
