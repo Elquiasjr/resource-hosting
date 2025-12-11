@@ -245,7 +245,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                         </div>
 
                         {/* UPDATED: Increased max-w-3xl to max-w-4xl for better visibility */}
-                        <div className="w-full max-w-4xl mx-auto">
+                        <div className="w-full max-w-8xl mx-auto">
                             {/* Game Frame */}
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-900 border-[8px] border-slate-800">
                                 <div className="relative w-full aspect-video bg-slate-100">
