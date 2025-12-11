@@ -36,9 +36,9 @@ const resourcesData = [
     description: 'Conteúdos em vídeo e áudio',
     fullDescription: 'Assista ao vídeo e ouça os áudios para aprender mais sobre as florestas.',
     content: {
-      type: 'media',
-      videoUrl: 'https://www.youtube.com/embed/278IRQ6HSi4',
-      audioPlayers: 3
+        type: 'media',
+        videoUrl: '/resource-hosting/videos/video1.mp4', 
+        audioPlayers: 3
     }
   },
   {
@@ -48,7 +48,7 @@ const resourcesData = [
     color: 'from-orange-500 to-amber-600',
     type: 'quiz',
     description: 'Teste seus conhecimentos',
-    fullDescription: 'Responda às perguntas e descubra o quanto você sabe sobre a preservação das florestas!',
+    fullDescription: 'Queridos desbravadores, preparem-se para embarcar em um desafio divertido e educativo!',
     content: {
       type: 'quiz',
       embedUrl: 'https://wordwall.net/pt/embed/b907b90b125445958294f6cc101d489e?themeId=1&templateId=5&fontStackId=0'
@@ -195,17 +195,30 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                         {/* Video Section */}
                         <div className="bg-white rounded-2xl shadow-xl p-8">
                             <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Vídeo Educativo</h2>
-                            <div className="aspect-video rounded-xl overflow-hidden bg-slate-100 border-4 border-slate-200 shadow-inner">
-                                <iframe
-                                src={resource.content.videoUrl}
-                                className="w-full h-full"
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                allowFullScreen
-                                title="Vídeo Educativo"
-                                />
+                            <div className="aspect-video rounded-xl overflow-hidden bg-slate-100 border-4 border-slate-200 shadow-inner relative">
+                                {resource.content.videoUrl?.match(/\.(mp4|webm|ogg)$/i) ? (
+                                    // Option A: Local Video Player
+                                    <video 
+                                        className="w-full h-full object-cover"
+                                        controls
+                                        playsInline
+                                        preload="metadata"
+                                    >
+                                        <source src={resource.content.videoUrl} type="video/mp4" />
+                                        Seu navegador não suporta a tag de vídeo.
+                                    </video>
+                                ) : (
+                                    // Option B: External Embed (YouTube/Vimeo)
+                                    <iframe
+                                        src={resource.content.videoUrl}
+                                        className="w-full h-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        title="Vídeo Educativo"
+                                    />
+                                )}
                             </div>
                         </div>
-
                         {/* Audio Section */}
                         <div className="bg-white rounded-2xl shadow-xl p-8">
                             <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Áudios Complementares</h2>
@@ -232,15 +245,17 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                         <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-orange-400 to-amber-500" />
                         
                         <div className="text-center mb-10 relative z-10">
-                            <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-orange-100 mb-6 shadow-sm">
-                                <span className="text-4xl">🎮</span>
-                            </div>
-                            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+                            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
                                 Hora do Desafio!
-                            </h2>
-                            <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-                                Mostre que você aprendeu tudo sobre a Mata Atlântica e a Floresta de Cantanhez.
-                                Responda corretamente para se tornar um Guardião!
+                            </h3>
+                            <p className="text-slate-600 text-xl text-justify indent-15 max-w-5xl mx-auto">
+                                Iremos utilizar a ferramenta Wordwall para um quiz interativo que explorará as riquezas e os perigos que rondam dois biomas essenciais: 
+                                a nossa brasileira Mata Atlântica e a africana Floresta de Cantanhez, na Guiné-Bissau. 
+                            </p>
+                            <p className="text-slate-600 text-xl text-justify indent-15 max-w-5xl mx-auto">
+                                O quiz apresentará perguntas de múltipla escolha, abrangendo o assunto presente na História em Quadrinhos e no Vídeo,  
+                                o objetivo é que, ao competir e aprender sobre a interconexão da vida nesses ecossistemas, 
+                                vocês compreendam a importância de ações locais e globais para proteger esses lugares cheios de vida.
                             </p>
                         </div>
 
