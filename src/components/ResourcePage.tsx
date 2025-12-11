@@ -168,7 +168,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
             {/* Book Content */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 {resource.content.type === 'hq' && resource.content.images && (
-                    <div className="bg-white rounded-2xl shadow-xl p-8 mb-12">
+                    <div className="bg-white rounded-2xl shadow-xl p-8 mb-2">
                         <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Galeria de Imagens</h2>
                         <p className="text-slate-600 text-center mb-8">
                             Clique nas bordas das páginas ou use os botões para navegar
@@ -191,7 +191,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
 
                {/* Media (Video + Audio) */}
                 {resource.content.type === 'media' && (
-                    <div className="space-y-8 mb-12">
+                    <div className="space-y-8 mb-4">
                         {/* Video Section */}
                         <div className="bg-white rounded-2xl shadow-xl p-8">
                             <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Vídeo Educativo</h2>
@@ -227,8 +227,8 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
 
                 {/* Quiz */}
                 {resource.content.type === 'quiz' && (
-                    // UPDATED: Added mb-16 for spacing from navigation
-                    <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 relative overflow-hidden mb-16">
+                    // UPDATED: Reduced margin from mb-16 to mb-8
+                    <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 relative overflow-hidden mb-2">
                         <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-orange-400 to-amber-500" />
                         
                         <div className="text-center mb-10 relative z-10">
@@ -244,8 +244,8 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                             </p>
                         </div>
 
-                        {/* UPDATED: Changed max-w-5xl to max-w-3xl to reduce size */}
-                        <div className="w-full max-w-3xl mx-auto">
+                        {/* UPDATED: Increased max-w-3xl to max-w-4xl for better visibility */}
+                        <div className="w-full max-w-4xl mx-auto">
                             {/* Game Frame */}
                             <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-900 border-[8px] border-slate-800">
                                 <div className="relative w-full aspect-video bg-slate-100">
