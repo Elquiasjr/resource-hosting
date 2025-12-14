@@ -31,7 +31,7 @@ export function About() {
                 <Heart className="w-8 h-8 text-green-600" />
                 </div>
                 <h2 className="mb-3">Quem Criou Este Projeto</h2>
-                <p className="text-slate-600 max-w-2xl mx-auto">
+                <p className="text-slate-600 text-lg max-w-2xl mx-auto">
                 Somos um grupo dedicado à educação ambiental e à preservação das florestas. 
                 Criamos este projeto para inspirar a próxima geração de guardiões da natureza.
                 </p>

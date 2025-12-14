@@ -109,7 +109,7 @@ export default function LandingPage({ currentResourceIndex, completedResources, 
 
         {/* Main Content - Centered */}
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <main className="space-y-16">
+          <main className="space-y-20">
             {/* Sobre Section */}
             <section id="sobre" className="scroll-mt-8">
               <div className="text-center mb-8">
@@ -120,21 +120,21 @@ export default function LandingPage({ currentResourceIndex, completedResources, 
                 <p className="text-slate-600 text-lg">Bem-vindo ao Projeto Guardiões da Floresta</p>
               </div>
               <div className="bg-white rounded-2xl shadow-lg p-10">
-            <p className="text-slate-700 mb-6">
+            <p className="text-slate-700 text-lg mb-6">
               Você já parou para pensar em como as florestas são importantes para a nossa vida? 
               A <strong>Mata Atlântica</strong>, aqui no Brasil, e a <strong>Floresta de Cantanhez</strong>, 
               na Guiné-Bissau, são dois exemplos incríveis de ambientes ricos em vida, cultura e história. 
               Mesmo estando em continentes diferentes, elas têm algo em comum: ambas abrigam uma grande 
               diversidade de plantas e animais e são fundamentais para o equilíbrio do planeta.
             </p>
-            <p className="text-slate-700 mb-6">
+            <p className="text-slate-700 text-lg mb-6">
               Estudar essas florestas nos ajuda a entender como os seres vivos se relacionam entre si 
               e com o ambiente, além de mostrar como as ações humanas podem proteger ou prejudicar a natureza. 
               É aqui que entra o enfoque <strong>CTS — Ciência, Tecnologia e Sociedade</strong>. Ele nos ajuda 
               a perceber que as decisões que tomamos, como o uso dos recursos naturais e a criação de tecnologias, 
               têm impacto direto na vida das pessoas e na saúde do meio ambiente.
             </p>
-            <p className="text-slate-700">
+            <p className="text-slate-700 text-lg">
               Nosso objetivo é explorar essas conexões e mostrar como cada um de nós pode fazer a diferença. 
               Vamos descobrir juntos curiosidades, desafios e soluções para conservar essas florestas tão importantes!
             </p>
@@ -251,7 +251,7 @@ export default function LandingPage({ currentResourceIndex, completedResources, 
                         </span>
                       )}
                     </div>
-                    <p className="text-slate-600">{resource.description}</p>
+                    <p className="text-slate-600 text-base">{resource.description}</p>
                   </div>
                 </div>
                 <div className={`w-12 h-12 rounded-full bg-gradient-to-r ${resource.color} flex items-center justify-center text-white text-xl`}>
