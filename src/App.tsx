@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { useState, useEffect, useCallback } from 'react';
 import LandingPage from './components/LandingPage';
 import ResourcePage from './components/ResourcePage';
@@ -46,7 +46,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route 
-          path="/resource-hosting/" 
+          path="/" 
           element={
             <LandingPage 
               currentResourceIndex={currentResourceIndex}
@@ -56,7 +56,7 @@ export default function App() {
           } 
         />
         <Route 
-          path="/resource-hosting/trilha/:id" 
+          path="/trilha/:id" 
           element={
             <ResourcePage 
               currentResourceIndex={currentResourceIndex}

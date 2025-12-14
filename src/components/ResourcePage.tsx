@@ -106,7 +106,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
 
     const handlePrevious = () => {
         if (resourceId > 0) {
-            navigate(`/resource-hosting/trilha/${resourceId - 1}`);
+            navigate(`/trilha/${resourceId - 1}`);
         }
     };
 
@@ -117,14 +117,14 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
         markAsCompleted(resourceId);
         if (resourceId < resourcesData.length - 1) {
             setCurrentResource(resourceId + 1);
-            navigate(`/resource-hosting/trilha/${resourceId + 1}`);
+            navigate(`/trilha/${resourceId + 1}`);
         } else {
-            navigate('/resource-hosting/');
+            navigate('/');
         }
     };
 
     const handleHome = () => {
-        navigate('/resource-hosting/');
+        navigate('/');
     };
 
     if (!resource) {
