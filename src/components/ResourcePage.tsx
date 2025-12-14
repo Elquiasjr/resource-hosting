@@ -7,7 +7,6 @@ const resourcesData = [
   {
     id: 0,
     title: 'HQ Interativa: Conexões Ecológicas',
-    icon: '🖼️',
     color: 'from-green-500 to-emerald-600',
     type: 'hq',
     description: 'Galeria de imagens das florestas',
@@ -24,13 +23,23 @@ const resourcesData = [
         '/resource-hosting/images/page_7.jpg',
         '/resource-hosting/images/page_8.jpg',
         '/resource-hosting/images/page_9.jpg'
+      ],
+      audioPages: [
+        { pageIndex: 0, audioSrc: '/resource-hosting/audios/audio1.mp3', title: 'Áudio da Página 1'},
+        { pageIndex: 1, audioSrc: '/resource-hosting/audios/audio2.mp3', title: 'Áudio da Página 2'},
+        { pageIndex: 2, audioSrc: '/resource-hosting/audios/audio3.mp3', title: 'Áudio da Página 3'},
+        { pageIndex: 3, audioSrc: '/resource-hosting/audios/audio4.mp3', title: 'Áudio da Página 4'},
+        { pageIndex: 4, audioSrc: '/resource-hosting/audios/audio5.mp3', title: 'Áudio da Página 5'},
+        { pageIndex: 5, audioSrc: '/resource-hosting/audios/audio6.mp3', title: 'Áudio da Página 6'},
+        { pageIndex: 6, audioSrc: '/resource-hosting/audios/audio7.mp3', title: 'Áudio da Página 7'},
+        { pageIndex: 7, audioSrc: '/resource-hosting/audios/audio8.mp3', title: 'Áudio da Página 8'},
+        { pageIndex: 8, audioSrc: '/resource-hosting/audios/audio9.mp3', title: 'Áudio da Página 9'}
       ]
     }
   },
   {
     id: 1,
     title: 'Aprendendo com Vídeos',
-    icon: '🎬',
     color: 'from-blue-500 to-cyan-600',
     type: 'media',
     description: 'Conteúdos em vídeo',
@@ -46,8 +55,7 @@ const resourcesData = [
   },
   {
     id: 2,
-    title: 'Quiz dos Guardiões',
-    icon: '🎯',
+    title: 'Hora do Desafio!',
     color: 'from-orange-500 to-amber-600',
     type: 'quiz',
     description: 'Teste seus conhecimentos',
@@ -142,13 +150,14 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
                     <button
                         onClick={handleHome}
-                        className="flex items-center gap-2 text-slate-600 hover:text-green-600 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 hover:text-slate-900 rounded-lg transition-all shadow-sm hover:shadow-md font-medium border border-slate-300"
+                        aria-label="Voltar para a página inicial"
                     >
                         <Home className="w-5 h-5" />
                         <span>Página Inicial</span>
                     </button>
                     <div className="flex items-center gap-2">
-                        <span className="text-slate-600">
+                        <span className="text-slate-600 font-medium">
                             Etapa {resourceId + 1} de {resourcesData.length}
                         </span>
                     </div>
@@ -156,12 +165,11 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
             </header>
 
             { /* Resource Section */ }
-            <div className={`bg-gradient-to-r ${resource.color} py-12`}>
+            <div className={`bg-gradient-to-r ${resource.color} py-6`}>
                 <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="text-center text-white">
-                        <div className="text-8xl mb-4">{resource.icon}</div>
-                        <h1 className="mb-3">{resource.title}</h1>
-                        <p className="text-xl max-w-2xl mx-auto opacity-95">
+                        <h1 className="mb-2">{resource.title}</h1>
+                        <p className="text-lg max-w-5xl mx-auto opacity-95">
                         {resource.fullDescription}
                         </p>
                     </div>
@@ -169,11 +177,10 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
             </div>
 
             {/* Book Content */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 {resource.content.type === 'hq' && resource.content.images && (
                     <div className="bg-white rounded-2xl shadow-xl p-8 mb-2">
-                        <h2 className="text-3xl font-bold text-slate-900 mb-6 text-center">Galeria de Imagens</h2>
-                        <p className="text-slate-600 text-center mb-8">
+                        <p className="text-black font-bold text-2xl text-center mb-4">
                             Clique nas bordas das páginas ou use os botões para navegar
                         </p>
                         {!canProceed && (
@@ -185,7 +192,8 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                         )}
                         <div className="flex justify-center items-center">
                             <Book 
-                                pages={resource.content.images} 
+                                pages={resource.content.images}
+                                audioPages={resource.content.audioPages}
                                 onLastPageReached={handleLastPageReached}
                             />
                         </div>
@@ -229,29 +237,24 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
 
                 {/* Quiz */}
                 {resource.content.type === 'quiz' && (
-                    // UPDATED: Reduced margin from mb-16 to mb-8
-                    <div className="bg-white rounded-2xl shadow-xl p-8 lg:p-12 relative overflow-hidden mb-2">
-                        <div className="absolute top-0 left-0 w-full h-3 bg-gradient-to-r from-orange-400 to-amber-500" />
+                    <div className="bg-white rounded-2xl shadow-xl p-4 lg:p-6 relative overflow-hidden mb-1">
+                        <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-400 to-amber-500" />
                         
-                        <div className="text-center mb-10 relative z-10">
-                            <h3 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8">
-                                Hora do Desafio!
-                            </h3>
-                            <p className="text-slate-600 text-xl text-justify indent-15 max-w-5xl mx-auto">
+                        <div className="text-center mb-3 relative z-10">
+                            <p className="text-slate-600 text-sm md:text-base text-justify indent-6 max-w-6xl mx-auto mb-1">
                                 Iremos utilizar a ferramenta Wordwall para um quiz interativo que explorará as riquezas e os perigos que rondam dois biomas essenciais: 
                                 a nossa brasileira Mata Atlântica e a africana Floresta de Cantanhez, na Guiné-Bissau. 
                             </p>
-                            <p className="text-slate-600 text-xl text-justify indent-15 max-w-5xl mx-auto">
+                            <p className="text-slate-600 text-sm md:text-base text-justify indent-6 max-w-6xl mx-auto">
                                 O quiz apresentará perguntas de múltipla escolha, abrangendo o assunto presente na História em Quadrinhos e no Vídeo,  
                                 o objetivo é que, ao competir e aprender sobre a interconexão da vida nesses ecossistemas, 
                                 vocês compreendam a importância de ações locais e globais para proteger esses lugares cheios de vida.
                             </p>
                         </div>
 
-                        {/* UPDATED: Increased max-w-3xl to max-w-4xl for better visibility */}
                         <div className="w-full max-w-6xl mx-auto">
                             {/* Game Frame */}
-                            <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-slate-900 border-[8px] border-slate-800">
+                            <div className="relative rounded-xl overflow-hidden shadow-2xl bg-slate-900 border-4 border-slate-800">
                                 <div className="relative w-full aspect-video bg-slate-100">
                                     <iframe 
                                         src={resource.content.embedUrl} 
@@ -263,8 +266,8 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                                 </div>
                             </div>
                             
-                            <div className="mt-6 text-center">
-                                <p className="text-sm text-slate-500">
+                            <div className="mt-3 text-center">
+                                <p className="text-xs text-slate-500">
                                     O jogo não carregou? {' '}
                                     <a 
                                         href={resource.content.embedUrl} 
@@ -282,13 +285,13 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
             </div>
 
             {/* Navigation Buttons */}
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-                <div className="bg-white rounded-2xl shadow-lg p-8">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-6 pt-2">
+                <div className="bg-white rounded-2xl shadow-lg p-4">
                     <div className="flex items-center justify-between gap-4">
                         <button
                             onClick={handlePrevious}
                             disabled={resourceId === 0}
-                            className={`flex items-center gap-2 px-8 py-4 rounded-xl transition-all text-lg ${
+                            className={`flex items-center gap-2 px-6 py-2 rounded-xl transition-all text-base ${
                                 resourceId === 0
                                 ? 'bg-slate-100 text-slate-400 cursor-not-allowed'
                                 : 'bg-slate-200 text-slate-700 hover:bg-slate-300'
@@ -301,7 +304,7 @@ export default function ResourcePage({ currentResourceIndex, setCurrentResource,
                         <button
                             onClick={handleNext}
                             disabled={!canProceed && resource.content.type === 'hq'}
-                            className={`flex items-center gap-2 px-8 py-4 rounded-xl transition-all text-lg ${
+                            className={`flex items-center gap-2 px-6 py-2 rounded-xl transition-all text-base ${
                                 !canProceed && resource.content.type === 'hq'
                                 ? `bg-slate-100 text-slate-400 cursor-not-allowed`
                                 : resourceId === resourcesData.length - 1

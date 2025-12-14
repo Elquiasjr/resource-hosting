@@ -1,13 +1,15 @@
 import HTMLFlipBook from "react-pageflip";
 import { useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { AudioPlayer } from "./AudioPlayer";
 
 interface BookProps {
     pages: string[];
+    audioPages?: { pageIndex: number; audioSrc: string; title?: string }[];
     onLastPageReached?: () => void;
 }
 
-export function Book({ pages, onLastPageReached }: BookProps) {
+export function Book({ pages, audioPages, onLastPageReached }: BookProps) {
     const bookRef = useRef<any>(null);
     const [currentPage, setCurrentPage] = useState(0);
     const [hasReachedLastPage, setHasReachedLastPage] = useState(false);
@@ -93,15 +95,6 @@ export function Book({ pages, onLastPageReached }: BookProps) {
                 </div>
             </div>
 
-            {/* Last Page Reached Indicator */}
-                {hasReachedLastPage && (
-                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-bounce z-10">
-                        <span className="font-medium">
-                            ✓ Você completou todas as páginas!
-                        </span>
-                    </div>
-                )}
-
             {/* Navigation Controls */}
             <div className="flex items-center justify-center gap-4 w-full flex-wrap">
                 <button
@@ -137,6 +130,27 @@ export function Book({ pages, onLastPageReached }: BookProps) {
                     <ChevronRight className="w-5 h-5" />
                 </button>
             </div>
+
+            {/* Audio Player for Current Page */}
+            {audioPages && audioPages.find(ap => ap.pageIndex === currentPage) && (
+                <div className="w-full max-w-3xl -mt-2">
+                    <AudioPlayer 
+                        src={audioPages.find(ap => ap.pageIndex === currentPage)!.audioSrc}
+                        title={audioPages.find(ap => ap.pageIndex === currentPage)!.title}
+                    />
+                </div>
+            )}
+
+            {/* Last Page Reached Indicator */}
+                {hasReachedLastPage && (
+                    <div className="absolute top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg animate-bounce z-10">
+                        <span className="font-medium">
+                            ✓ Você completou todas as páginas!
+                        </span>
+                    </div>
+                )}
+
+            
         </div>
     );
 }

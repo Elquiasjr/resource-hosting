@@ -221,3 +221,32 @@ html {
   object-fit: contain;
   user-select: none;
 }
+
+/* Audio Player Slider Styles */
+.audio-slider::-webkit-slider-thumb {
+  appearance: none;
+  width: 0;
+  height: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.audio-slider::-moz-range-thumb {
+  width: 0;
+  height: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.audio-slider::-webkit-slider-runnable-track {
+  height: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.audio-slider::-moz-range-track {
+  height: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
